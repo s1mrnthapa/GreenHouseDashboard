@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en">
+      <head>
+            <title> Website </title>
+            <meta charset="UTF-8">
+            <meta name="description" content="A user-friendly dashboard for monitoring and managing greenhouse data efficiently.">
+            <meta name="keywords" content="dashboard, data visualization, monitoring, management, IoT, greenhouse">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+            <style>
+                  .navbar{
+                        background-color: white;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 10px 35px;
+                  }
+                  .navsection ul{
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                        display: flex;
+                        list-style: none;
+                        color: black;
+                        gap: 80px;
+                  }
+                  .name{
+                        position: absolute;
+                        left: 45%;
+                  }
+                  .name img{
+                        height: 30px;
+                        width: 160px;
+                  }
+                  a{
+                        text-decoration: none;
+                        color: black;
+                        font-size: 20px;
+                  }
+                  a:hover, a:active{
+                        text-decoration: underline;
+                  }
+                  .notification a:hover {
+                        color: #f39c12; /* Change color on hover */
+                  }
+                  hr {
+                        border: none;
+                        height: 2px;
+                        background-color: #333; /* Line color */
+                        margin: 0; /* Remove default spacing */
+                  }
+                  .grid-container{ 
+                        display: grid; 
+                        grid-template-columns: 1fr 1fr; /*2 1fr means the layout will have 2 columns*/
+                  }
+                  .container{
+                        width:100%;
+                        height: 350;
+                  }
+                  h1, p {
+                        margin: 10px;
+                  }
+                  .sensor-result{
+                        font-size: 42px;
+                        text-align: center;
+                        font-weight: bold;
+                  }
+                  .sensor-data{
+                        text-align: left;
+                        font-size: 22px;
+                        text-align: right;
+                  }     
+                  .sensor-name{
+                        text-align: center;
+                        font-size: 18px;
+                        letter-spacing: 3px;
+                        margin-bottom: 0;
+                  }
+
+                  .container3{
+                        display: flex;       
+                        justify-content: space-evenly;
+                        width: 95%;
+                        height: 250px;
+                        margin-left: 15px;
+                  }
+                  .poppins-bold-italic {
+                        font-family: "Poppins", serif;
+                        font-weight: 700;
+                        font-style: italic;
+                  }
+                  .fan{
+                        display: flex;
+                        justify-content: center;
+                  }
+                  .fan_icon{
+                        width: 140px;
+                        height: 140px;
+                        object-fit: contain;
+                        margin-top: 20px;
+                        animation: fan 0.7s infinite linear;
+                  }
+                  @keyframes fan{
+                        100%{
+                              transform: rotateZ(360deg);
+                        }
+                  }
+                  .statusBulb{
+                        display: flex;
+                  }
+                  .statusFan, .statusBulb, .statusPump{
+                        padding: 10px 15px;
+                        font-size: 15px;
+                        background-color: white;
+                        border-radius: 25px; /* Makes the rectangle circular */
+                        display: inline-block;
+                        text-align: center;
+                        min-width: 60px;
+                  }
+                  
+                  .light_section{
+                        justify-content: center;
+
+                  }
+                  .bulb {
+                        background: url('./images/off.png');
+                        width: 150px;
+                        height: 160px;
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        transition: 0.2 ease;
+                  }
+                  .bulb.active {
+                        background: url('./images/on.png');
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        width: 150px;
+                        height: 160px;
+                  }
+                  .water_section{
+                        justify-content: center;
+                  }
+                  .water_wave{
+                        margin-top: 25px;
+                        margin-bottom: 13px;
+                        width: 130px;
+                        height: 130px;
+                        background: #35b3e7;
+                        border-radius: 50%;
+                        box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.8)
+                        0 0 20px 0 rgba(0,0,0,0.3);
+                        position: relative;
+                        overflow: hidden;
+                  }
+                  .water_wave:after,
+                  .water_wave:before{
+                        content: "";
+                        position: absolute;
+                        width: 200%;
+                        height: 200%;
+                        top: -20%;
+                        left: 50%;
+                        background: #ffff;   
+                  }
+                  .water_wave:after{
+                        border-radius: 45%;
+                        animation: water_wave 5s linear infinite;
+                  }
+                  .water_wave:before{
+                        border-radius: 35%;
+                        background: rgba(255,255,255,.3);
+                        animation: water_wave 5s linear infinite;
+                  }
+                  @keyframes water_wave{
+                        0%{
+                              transform: translate(-50%, -50%) rotate(0deg);
+                              top: -30%;
+                        }
+                        50%{
+                              top: -50%;
+                        }
+                        100%{
+                              transform: translate(-50%, -50%) rotate(360deg);
+                              top: -30%;
+                        }
+                  }
+                  .heading{
+                        font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+                  }
+                  .subheading{
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                  }
+                  .temp{
+                        width: 175px;
+                        margin-bottom:50px;  
+                  }
+                  .soil{
+                        /* display: grid;
+                        grid-template-columns: 100px 1fr; */
+                        justify-content: space-evenly;
+                        background-color: wheat;
+                        width: 45%;
+                        height: 180px;
+                        border-radius: 40px;
+                        display: grid;
+                        margin: 5px 20px;
+                        
+                  }
+            </style>
+      </head>
+      <body>
+            <header>
+                  <nav class="navbar">
+                        <div class="navsection">
+                              <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#" >Dashboard</a></li>
+                                    <li><a href="#" >About us</a></li>
+                              </ul>
+                        </div>
+                        <div class="name">
+                              <img class="logo_icon" src="./images/name.png" alt="agricultur">
+                        </div>
+                        <figure class="notification">
+                              <a href="#">
+                                    <i class="fa-solid fa-bell"></i>
+                              </a> 
+                        </figure>
+                  </nav>
+                        <hr>
+            </header>
+            <div class="grid-container">
+                <!-- container 1 -->
+                <div class="container1 container" style="
+                background-color: white;
+                
+                ">    
+                    <p class="greenhouse-description heading" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                    font-size: 40px;"> Your greenhouse companion </p>
+                    <p style="font-size: 18px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> Helping you monitor, optimize, and grow your greenhouse effortlessly </p>
+
+                    <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    ">
+                        <!-- container for soil moisture data -->
+                        <div class="soil">
+                              <div style="display: grid;
+                              grid-template-columns: 100px 1fr;
+                              ">
+                                    <div style="
+                                    align-content: end;
+                                    ">
+                                    <img class="soil_moist" src="images/horticulturee.png" alt="" style="
+                                    width: 100%; right: 30px;
+                                    ">
+                              </div>
+                              
+                              <div style="display: grid;
+                              ">
+                                    <div style="
+                                    display:grid;
+                                    grid-template-columns: 1fr 40%;
+                                    ">
+                                          <p class="sensor-data" style="margin-right: 0; color:green;">↑</p>
+                                          <p class="sensor-data" style="margin-left: 0; 
+                                          text-align: left;
+                                          padding-right:10px;" id="soil_moisture">0%</p>
+                                    </div>
+
+                                    <p class="sensor-result intensity-output">High</p>
+                              </div>
+                              </div>
+                              <div style="
+                              display: grid;
+                              align-self: center;
+                              ">
+                                    <p class="sensor-name intensity-name">Soil Moisture</p> 
+                              </div>
+                        </div>
+                        
+                        <!-- container for light intensiteoiaweaejghawenfy-->
+                        <div class="soil" style="background-color: aquamarine">
+                              <div style="display: grid;
+                              grid-template-columns: 100px 1fr;">
+                                    <div style="
+                                    align-content: end;
+                                    ">
+                                    <img class="light_intensity" src="images/light intensity.png" alt="" style="
+                                    width: 100%;
+                                    object-fit: contain;
+                                    ">
+                              </div>
+                              
+                              <div style="display: grid;
+                              ">
+                                    <div style="
+                                    display:grid;
+                                    grid-template-columns: 1fr 40%;
+                                    ">
+                                          <p class="sensor-data" style="margin-right: 0; color:green;">↑</p>
+                                          <p class="sensor-data" id="intensity_no" style="margin-left: 0; 
+                                          text-align: left;
+                                          padding-right:10px;">0</p>
+                                    </div>
+
+                                    <p class="sensor-result intensity-output">High</p>
+                              </div>
+                              </div>
+                              <div style="
+                              display: grid;
+                              align-self: center;
+                              ">
+                                    <p class="sensor-name intensity-name">Light Intensity</p> 
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- container 2 -->
+                <div class="container2 container" style="
+                background-color: lightgreen;
+                display: grid;
+                grid-template-columns: 250px 425px;
+                border-radius: 35px;
+                margin-top: 18px;
+                margin-left: 20px;
+                width: 95%;
+                ">
+                  <div style="
+                  align-self: self-end;
+                  ">
+                        <img class="temp" src="./images/high-temperature.png" alt="temperature">
+                  </div>
+                
+                  <!-- temperature data info -->
+                  <div class="temp-data-info">
+                        <div class="temperature subheading">
+                              <p style="font-size: 40px;">TEMPERATURE</p>
+                        </div>
+                        <div class="temp_data" style="display:flex; 
+                        font-size:72px; 
+                        justify-content: right;
+                        padding-right:20px;
+                        ">
+                              <p class="tempNo" id="temp_no">0</p>
+                              <p class="degree" style="margin-left: 0px;">°C<p>
+                        </div>
+                  </div>
+                </div>
+
+                  <!-- container 3 -->
+                <div class="heading_container" style="
+                background-color: white;
+                ">    
+                    <p class="manage-description heading" style="
+                    font-size: 30px;
+                    ">Manage Environmental Factors </p>
+                    
+                    <div class="manage subheading">
+                        <p style="font-size: 15px;"> Optimizing air, light, and water </p>
+                    </div>
+                
+                <div class="container3 container" style="background-color: lightgreen; margin-top: 20px; border-radius: 60px;">    
+                    <div class="fan_section" style="
+                    background-color: lightgreen;
+                    border-radius: 50px; 
+                    ">
+                    <div class="fan">
+                        <img  class="fan_icon" src="./images/img.png" alt="rotating fan"></div>
+                        <h1 style="font-size: 20px;">Fan Status <br> <span id="fanStatus" class="statusFan" style="margin-top: 10px;">ON</span></h1>
+                    </div>
+
+                    <div class="light_section" style="
+                    background-color: lightgreen;
+                    border-radius: 50px;
+                       ">
+                    <div class="bulb" id="bulb_icon"></div>
+                        <h1 style="font-size: 20px;">Bulb Status <br> <span id="lightStatus" class="statusBulb" style="margin-top: 10px;">0</span></h1>
+                  </div>
+                        <script>
+                        const switcher = document.getElementById('bulb_icon');
+
+                        // Function to toggle the active class every 3 seconds
+                        setInterval(() => {
+                              switcher.classList.toggle('active');
+                        }, 1000); // 1000ms = 1 seconds
+                        </script>
+                    <div class="water_section" style="
+                    background-color: lightgreen;
+                    border-radius: 50px;
+                    ">
+                    <div class="water_wave"></div>
+                    <h1 style="font-size: 20px;">Motor Status <br> <span id="pumpStatus" class="statusPump" style="margin-top: 10px;">0</span></h1>
+                    </div>
+                </div>
+                </div>
+                <div class="container4 container" style="
+                background-color:aquamarine;
+                display: grid;
+                grid-template-columns: 250px 425px;
+                border-radius: 35px;
+                margin-top: 30px;
+                margin-left: 20px;
+                width: 95%;
+                height: 90%;
+                ">
+                  <img class="humidity" style="width: 170px; margin-top: 80px; margin-left: 35px;" src="./images/—Pngtree—vector humidity icon_3773492.png" alt="temperature">
+                  
+                  <!-- temperature data info -->
+                  <div class="temp-data-info">
+                        <div class="temperature subheading">
+                              <p style="font-size: 40px;">Humidity</p>
+                        </div>
+                        <div class="temp_data" style="display:flex; 
+                        font-size: 55px; 
+                        padding-right:20px;
+                        justify-content: right;">
+                              <p class="tempNo" id="humidity_no"> 0 </p>
+                              <hr>
+                              <p class="degree" style="margin-left: 0px;">%<p>
+                        </div>
+                  </div>
+                </div>
+            </div>
+            <script>
+                  function fetchData() {
+                    fetch('http://172.25.7.234/data')  
+                      .then(response => response.json())  // Parse JSON response
+                      .then(data => {
+                        // Update the specific element (0) with the temperature
+                        document.getElementById('temp_no').textContent = `${data.temperature}`;
+                        document.getElementById('humidity_no').textContent = `${data.humidity}`;
+                        document.getElementById('intensity_no').textContent = `${data.lightIntensity}`;
+                        
+                       
+                        //for bulb
+                        if (data.lightStatus == 1) {
+                              document.getElementById('lightStatus').textContent = "ON";
+                        } else {
+                              document.getElementById('lightStatus').textContent = "OFF";
+                        }
+                       
+                        document.getElementById('soil_moisture').textContent = `${data.soilMoisture}`;
+                        
+                        //for fans
+                        if (data.pumpStatus == 1) {
+                              document.getElementById('fanStatus').textContent = "ON";
+                        } else {
+                              document.getElementById('fanStatus').textContent = "OFF";
+                        }   
+                        
+                        //pump status
+                        if (data.pumpStatus == 1) {
+                              document.getElementById('pumpStatus').textContent = "ON";
+                        } else {
+                              document.getElementById('pumpStatus').textContent = "OFF";
+                        }
+                      })
+                      .catch(error => {
+                        console.error('Error fetching data:', error);
+                      });
+                  }
+              
+                  // Fetch data every 5 seconds
+                  setInterval(fetchData, 2000);
+                  
+                  // Initial fetch
+                  fetchData();
+                </script>
+      </body>
+</html>
